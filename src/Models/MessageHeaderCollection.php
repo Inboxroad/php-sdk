@@ -2,8 +2,6 @@
 
 namespace Inboxroad\Models;
 
-use StdClass;
-
 /**
  * Class MessageHeaderCollection
  * @package Inboxroad\Models

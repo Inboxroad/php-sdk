@@ -19,13 +19,12 @@ class InboxroadTest extends Base
 
     /**
      * @return void
-     * @throws \ErrorException
      */
     public function setUp(): void
     {
         parent::setUp();
         
-        $this->inboxroad = new Inboxroad(new HttpClient((string)getenv('INBOXROAD_API_KEY')));
+        $this->inboxroad = new Inboxroad(new HttpClient('DUMMY'));
     }
 
     /**
