@@ -8,7 +8,7 @@ use Inboxroad\Inboxroad;
 
 /**
  * Class InboxroadTest
- * @package Inboxroad\Test;
+ * @package Inboxroad\Test
  */
 class InboxroadTest extends Base
 {

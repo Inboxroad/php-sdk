@@ -64,7 +64,7 @@ class MessageTest extends Base
     private $message;
 
     /**
-     * @throws \ErrorException
+     * @return void
      */
     public function setUp(): void
     {

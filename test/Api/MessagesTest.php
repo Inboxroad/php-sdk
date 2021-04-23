@@ -13,7 +13,7 @@ use Inboxroad\Test\Base;
 
 /**
  * Class MessagesTest
- * @package Inboxroad\Test\Models
+ * @package Inboxroad\Test\Api
  */
 class MessagesTest extends Base
 {
