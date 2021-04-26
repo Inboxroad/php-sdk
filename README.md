@@ -1,8 +1,8 @@
 # Inboxroad Library for PHP
 
 ## Getting Started  
-You will need a [inboxroad account](https://www.inboxroad.com) to get started.  
-Once you get an account, you will need to [get an api key](https://www.inboxroad.com/) 
+You will need an [inboxroad account](https://www.inboxroad.com) to get started.  
+Once you get an account, you will need to [get your api key](https://www.inboxroad.com/) 
 to use it in the API calls.  
 
 ## Installation
@@ -30,7 +30,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 // Create the http client, we will need it later:
 $httpClient = new Inboxroad\HttpClient\HttpClient((string)getenv('INBOXROAD_API_KEY'));
 
-// Send an email, method 1: 
+// Send email, method 1: 
 try {
 
     // Create the message object
@@ -49,7 +49,7 @@ try {
     // Send the message
     $response = $messages->send($message);
     
-    // Get it's message id
+    // Get the message id
     echo $response->getMessageId() . PHP_EOL;
 
 } catch (\Inboxroad\Exception\RequestException $e) {
@@ -57,7 +57,7 @@ try {
   echo $e->getMessage() . PHP_EOL;
 }
 
-// Send an email, method 2: 
+// Send email, method 2: 
 try {
 
     // Create the object instance
@@ -74,7 +74,7 @@ try {
         'html'          => '<strong>Testing...</strong>'
     ]);
     
-    // Get it's message id
+    // Get the message id
     echo $response->getMessageId() . PHP_EOL;
 
 } catch (\Inboxroad\Exception\RequestException $e) {
