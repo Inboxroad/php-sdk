@@ -1,5 +1,6 @@
 {
     "name": "inboxroad/inboxroad-php",
+    "version": "1.0.0",
     "description": "Inboxroad Library for PHP",
     "homepage": "https://www.inboxroad.com",
     "autoload": {
