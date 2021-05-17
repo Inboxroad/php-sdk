@@ -23,6 +23,11 @@ class Message implements MessageInterface
     /**
      * @var string
      */
+    private $fromName = '';
+
+    /**
+     * @var string
+     */
     private $toEmail = '';
 
     /**
@@ -105,6 +110,25 @@ class Message implements MessageInterface
     public function getFromEmail(): string
     {
         return $this->fromEmail;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return MessageInterface
+     */
+    public function setFromName(string $name): MessageInterface
+    {
+        $this->fromName = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFromName(): string
+    {
+        return $this->fromName;
     }
 
     /**
@@ -266,6 +290,7 @@ class Message implements MessageInterface
     {
         return [
             'fromEmail'     => $this->getFromEmail(),
+            'fromName'      => $this->getFromName(),
             'toEmail'       => $this->getToEmail(),
             'toName'        => $this->getToName(),
             'replyToEmail'  => $this->getReplyToEmail(),
@@ -288,15 +313,16 @@ class Message implements MessageInterface
         }
         
         return [
-            'orig'       => $this->getFromEmail(),
-            'recipients' => [$this->getToEmail()],
-            'to_name'    => $this->getToName(),
-            'reply_to'   => $this->getReplyToEmail() ? [$this->getReplyToEmail()] : [],
-            'subject'    => $this->getSubject(),
-            'message'    => $this->getText(),
-            'html_body'  => $this->getHtml(),
-            'headers'    => $headers,
-            'files'      => $this->getAttachments()->toInboxroadArray(),
+            'from_email'    => $this->getFromEmail(),
+            'from_name'     => $this->getFromName(),
+            'to_email'      => $this->getToEmail(),
+            'to_name'       => $this->getToName(),
+            'reply_to_email'=> $this->getReplyToEmail(),
+            'subject'       => $this->getSubject(),
+            'text'          => $this->getText(),
+            'html'          => $this->getHtml(),
+            'headers'       => $headers,
+            'attachments'   => $this->getAttachments()->toInboxroadArray(),
         ];
     }
 
@@ -309,6 +335,7 @@ class Message implements MessageInterface
     {
         return (new self())
             ->setFromEmail($params['fromEmail'] ?? '')
+            ->setFromName($params['fromName'] ?? '')
             ->setToEmail($params['toEmail'] ?? '')
             ->setToName($params['toName'] ?? '')
             ->setReplyToEmail($params['replyToEmail'] ?? '')

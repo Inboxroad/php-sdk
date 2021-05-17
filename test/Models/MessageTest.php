@@ -119,6 +119,25 @@ class MessageTest extends Base
     /**
      * @return void
      */
+    final public function testSetFromName(): void
+    {
+        $this->assertInstanceOf(Message::class, $this->message->setFromName($this->name));
+    }
+
+    /**
+     * @return void
+     */
+    final public function testGetFromName(): void
+    {
+        $this->message->setFromName($this->name);
+
+        $this->assertIsString($this->message->getFromName());
+        $this->assertEquals($this->name, $this->message->getFromName());
+    }
+
+    /**
+     * @return void
+     */
     final public function testSetToEmail(): void
     {
         $this->assertInstanceOf(Message::class, $this->message->setToEmail($this->email));
@@ -320,6 +339,7 @@ class MessageTest extends Base
     {
         $message = (new Message())
             ->setFromEmail($this->email)
+            ->setFromName($this->name)
             ->setToEmail($this->email)
             ->setToName($this->name)
             ->setReplyToEmail($this->email)
@@ -334,6 +354,10 @@ class MessageTest extends Base
         $this->assertArrayHasKey('fromEmail', $params);
         $this->assertIsString($params['fromEmail']);
         $this->assertEquals($this->email, $params['fromEmail']);
+
+        $this->assertArrayHasKey('fromName', $params);
+        $this->assertIsString($params['fromName']);
+        $this->assertEquals($this->name, $params['fromName']);
 
         $this->assertArrayHasKey('toEmail', $params);
         $this->assertIsString($params['toEmail']);
@@ -375,6 +399,7 @@ class MessageTest extends Base
     {
         $message = (new Message())
             ->setFromEmail($this->email)
+            ->setFromName($this->name)
             ->setToEmail($this->email)
             ->setToName($this->name)
             ->setReplyToEmail($this->email)
@@ -386,41 +411,43 @@ class MessageTest extends Base
         
         $params = $message->toInboxroadArray();
 
-        $this->assertArrayHasKey('orig', $params);
-        $this->assertIsString($params['orig']);
-        $this->assertEquals($this->email, $params['orig']);
+        $this->assertArrayHasKey('from_email', $params);
+        $this->assertIsString($params['from_email']);
+        $this->assertEquals($this->email, $params['from_email']);
 
-        $this->assertArrayHasKey('recipients', $params);
-        $this->assertIsArray($params['recipients']);
-        $this->assertCount(1, $params['recipients']);
-        $this->assertEquals($this->email, $params['recipients'][0]);
+        $this->assertArrayHasKey('from_name', $params);
+        $this->assertIsString($params['from_name']);
+        $this->assertEquals($this->name, $params['from_name']);
+        
+        $this->assertArrayHasKey('to_email', $params);
+        $this->assertIsString($params['to_email']);
+        $this->assertEquals($this->email, $params['to_email']);
 
         $this->assertArrayHasKey('to_name', $params);
         $this->assertIsString($params['to_name']);
         $this->assertEquals($this->name, $params['to_name']);
 
-        $this->assertArrayHasKey('reply_to', $params);
-        $this->assertIsArray($params['reply_to']);
-        $this->assertCount(1, $params['reply_to']);
-        $this->assertEquals($this->email, $params['reply_to'][0]);
+        $this->assertArrayHasKey('reply_to_email', $params);
+        $this->assertIsString($params['reply_to_email']);
+        $this->assertEquals($this->email, $params['reply_to_email']);
 
         $this->assertArrayHasKey('subject', $params);
         $this->assertIsString($params['subject']);
         $this->assertEquals($this->subject, $params['subject']);
 
-        $this->assertArrayHasKey('message', $params);
-        $this->assertIsString($params['message']);
-        $this->assertEquals($this->text, $params['message']);
+        $this->assertArrayHasKey('text', $params);
+        $this->assertIsString($params['text']);
+        $this->assertEquals($this->text, $params['text']);
 
-        $this->assertArrayHasKey('html_body', $params);
-        $this->assertIsString($params['html_body']);
-        $this->assertEquals($this->html, $params['html_body']);
+        $this->assertArrayHasKey('html', $params);
+        $this->assertIsString($params['html']);
+        $this->assertEquals($this->html, $params['html']);
 
         $this->assertArrayHasKey('headers', $params);
         $this->assertInstanceOf(MessageHeaderCollectionInterface::class, $message->getHeaders());
         $this->assertCount(1, $message->getHeaders()->toInboxroadArray());
 
-        $this->assertArrayHasKey('files', $params);
+        $this->assertArrayHasKey('attachments', $params);
         $this->assertInstanceOf(MessageAttachmentCollectionInterface::class, $message->getAttachments());
         $this->assertCount(1, $message->getAttachments()->toInboxroadArray());
     }

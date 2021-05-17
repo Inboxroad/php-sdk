@@ -33,6 +33,18 @@ interface MessageInterface
     public function getFromEmail(): string;
 
     /**
+     * @param string $name
+     *
+     * @return MessageInterface
+     */
+    public function setFromName(string $name): MessageInterface;
+
+    /**
+     * @return string
+     */
+    public function getFromName(): string;
+
+    /**
      * @param string $email
      *
      * @return MessageInterface
